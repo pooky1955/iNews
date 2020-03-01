@@ -1,6 +1,6 @@
 # iNews Machine Learning
 
-Steps to run code on machine :
+### Steps to run code:
 
 1. Git Clone Fake News Challenge dataset
 2. Run `loader.py`, this will load the dataset into a folder called `related_data`
