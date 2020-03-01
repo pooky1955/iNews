@@ -6,8 +6,18 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from googletrans import Translator
 from nltk.corpus import stopwords
+import re
+from string import punctuation
 stopwords_set = set(stopwords.words("english"))
 
+
+def extract_keywords(headline):
+  tokens = headline.split(" ")
+  punc_patt = re.compile(rf'[{punctuation}]')
+  tokens = [punc_patt.sub("",token) for token in tokens]
+  tokens = [token for token in tokens if not token in stopwords_set]
+  tokens = [token for token in tokens if token.isalpha()]
+  return tokens
 
 def get_set_event_loop():
   try : 

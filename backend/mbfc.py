@@ -3,15 +3,22 @@ import pandas as pd
 from pprint import pprint
 from web_util import get_bodies, parse_articles
 from difflib import SequenceMatcher
+import re
 
-def keywords_search(url,lim):
+
+def keywords_search(url):
   session = HTMLSession()
   resp = session.get(url)
   resp.html.render()
   all_results = resp.html.find("div.gs-webResult")
-  return all_results[:lim]
+  return all_results
+
+
 
 def parse_hit(hit):
+  word_patt = re.compile(rf'[a-zA-Z]')
+  if word_patt.match(hit.full_text) == None:
+    return None
   title = hit.find(".gs-title",first=True).text
   url = hit.find("a.gs-title",first=True).attrs['href']
   description = hit.find("div.gs-snippet",first=True).text
@@ -23,10 +30,14 @@ def parse_hit(hit):
   }
 
 
-def make_url(keywords):
+def make_urls(keywords):
   query = '%20'.join(keywords)
+  urls = []
   url = 'https://factualsearch.news/?fns.type=mostly-center&gsc.tab=0&gsc.q='+query+'&gsc.sort='
-  return url
+  for i in range(1,5):
+    urls.append(f"{url}&gsc.page={i}")
+  print(urls)
+  return urls
 
 def make_df(parsed_results):
   df = pd.DataFrame()
@@ -34,11 +45,14 @@ def make_df(parsed_results):
     df = df.append(parsed_result,ignore_index=True)
   return df
 
-def request_facts(keywords,lim):
-  url = make_url(keywords)
-  all_results = keywords_search(url,lim)
+def request_facts(keywords):
+  urls = make_urls(keywords)
+  all_results = []
+  for url in urls:
+    all_results.extend(keywords_search(url))
 
   parsed_results = [parse_hit(hit) for hit in all_results]
+  parsed_results = filter(lambda x : x != None,parsed_results)
   df = make_df(parsed_results)
   new_df = search_urls(df["url"])
   return new_df
@@ -119,7 +133,7 @@ def parse_media(hit):
 if __name__ == "__main__":
   print("Starting test.")
   keywords = ['trump','kkk','father']
-  df = request_facts(keywords,lim=5)
+  df = request_facts(keywords)
   print(df)
   
   print("Test done.")

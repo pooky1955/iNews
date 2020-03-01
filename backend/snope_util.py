@@ -4,6 +4,7 @@ import requests
 from pprint import pprint
 
 
+
 class Snoper():
   def __init__(self):
     pass

@@ -6,9 +6,10 @@ from flask_cors import CORS
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-from mbfc import request_bias
+from mbfc import request_bias, request_facts
 from snope_util import Snoper
 from web_util import GoogleScraper
+
 
 stopwords_set = set(stopwords.words("english"))
 lemmatizer = WordNetLemmatizer()
