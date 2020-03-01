@@ -1,0 +1,57 @@
+@media (min-width : 600px) {
+
+/* FRONT PAGE */
+
+.app-prompt {
+  font-size : 2.4rem;
+}
+
+
+.main-nav .main-nav-link, .main-nav .nav-brand {
+  font-size : 2rem;
+}
+
+/* BOOTSTRAP CARDS */
+.card-title {
+  font-size : 2rem;
+}
+
+
+.card-header {
+  max-height : 15vmin;
+  font-size : 2.4rem;
+}
+
+/* END BOOTSTRAP CARDS */
+
+
+
+/* ARTICLE STATUS */
+
+.result-label {
+  font-size : 4rem;
+}
+
+
+/* END OF ARTICLE STATUS */
+
+/* Questionable source */
+.questionable-source-container>.fake-news-container {
+  font-size : 10rem;
+}
+
+
+.questionable-source-description {
+  font-size : 1.5rem;
+}
+
+.questionable-source-container .questionable-source-quote {
+  font-size : 1.2rem;
+}
+
+.testable-source {
+  font-size : 1.2rem;
+}
+
+
+}

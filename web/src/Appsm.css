@@ -1,0 +1,297 @@
+
+  
+@import url('https://fonts.googleapis.com/css?family=Oswald|Montserrat:100,300,800|Roboto:100,300,400,900&display=swap');
+.App {
+  width : 100vw;
+  font-size : 4vmin;
+  height : 100vh;
+}
+
+
+html,body {
+  overflow-x: hidden;
+}
+
+/* BOOTSTRAP CARDS */
+.card-title {
+  font-size : 1.4rem;
+  text-transform : uppercase;
+  align-items : center;
+  font-weight : 800;
+}
+
+hr.card-line {
+  width : 95%;
+  background-color : black;
+  border : 0.5px solid black;
+  height : 0.0003rem;
+  align-self : center;
+}
+
+.card-header {
+  font-family : Oswald, "sans-serif";
+  text-transform : uppercase;
+  justify-content : center;
+  font-weight : 300;
+  max-height : 2.5em;
+  flex-direction : column;
+  border : none;
+  align-items : center;
+  display : flex;
+  font-size : 2rem;
+}
+
+.chart-container {
+  min-height : 30px;
+}
+.card-body {
+  font-size : 1.3rem;
+  font-weight : 300;
+  word-wrap: break-word;
+}
+/* END BOOTSTRAP CARDS */
+
+
+/* DASHBOARD */
+
+
+.main-nav {
+  height : 3em;
+  width : 100vw;
+  display : flex; 
+  flex-direction : row; 
+  background : rgb(252, 251, 251);
+  z-index : 100000000000000;
+  position : fixed;
+  justify-content : space-between;
+  font-size : 1.5rem;
+}
+
+.main-nav div {
+  display : flex;
+  align-items : center;
+  padding : 2vmin;
+}
+
+.main-nav .main-nav-link {
+  color : rgb(82, 82, 82);
+  font-weight : 700;
+  text-transform: lowercase;
+  /* font-size : 1.3rem; */
+  font-family : Roboto;
+}
+
+
+
+.main-nav .nav-brand {
+    font-weight : 800;
+    font-family : Roboto;
+    
+}
+
+.main-nav .main-nav-link:hover {
+  text-decoration : none;
+  color : black;
+  transition-duration: 2000ms;
+}
+
+.main-nav + .content {
+  height : 100vh;
+  width : 100vw;
+  padding-top : 10vh; 
+}
+
+
+.nav-language-icon {
+  height: 1em;  
+}
+
+/* END OF DASHBOARD */
+
+/* ARTICLE STATUS */
+.result {
+  display : flex;
+  flex-direction: row;
+  align-items: center;
+  background : white;
+  padding-left : 5vmin;
+}
+.result-icon {
+  width : 10vmin;
+}
+
+.result>p {
+  font-size : 6vmin;
+  
+}
+
+.result-label {
+  font-size : 2rem;
+  text-transform : uppercase;
+  font-family : Oswald;
+}
+.result-explanation {
+  font-size : 1.3rem;
+  font-weight : 300;
+}
+
+.statistics-panel {
+  font-size : 2.5vmin;
+}
+
+/* END OF ARTICLE STATUS */
+
+/* FRONT PAGE */
+.app-frontpage-container {
+  display : flex;
+  align-items : center;
+  flex-direction : column;
+  padding-top : 10vmin;
+}
+
+.app-title {
+  font-family : Roboto, "sans serif";
+  font-weight : 900;
+  font-size : 3.5rem;
+  text-decoration : bold;
+}
+
+.app-description {
+  font-weight : 300;
+  font-size : 1.5rem;
+  text-align :center;
+}
+
+.app-prompt {
+  font-weight : 300;
+  font-size : 2rem;
+  text-decoration : bold;
+}
+
+.app-form-button {
+  border : 2px solid rgb(175, 221, 240);
+  color : rgb(41, 41, 41);
+  padding : 0.2em 0.6em;
+  transition-duration : 600ms;
+  border-radius : 15%;
+  font-weight : 300;
+  font-size : 1.5rem;
+  background : none;
+  outline : 0;
+}
+.app-form-button:hover {
+  box-shadow : 2px 2px 5px  rgb(152, 203, 224);
+}
+.dashboard-container {
+  display : flex;
+  background : whitesmoke;
+  flex-direction : column;  
+  width : 100vw;
+  height : 100vh;
+}
+
+.dashboard-container div {
+  flex-grow : 1
+}
+.dashboard-side-container {
+  display : flex;
+  flex-direction : column;
+}
+.dashboard-side-container>div {
+  margin : 3vmin;
+}
+
+
+.about-container {
+  padding : 2vmin;
+
+}
+.about-title {
+  font-family : Roboto;
+  font-weight : 800;
+  font-size : 5rem;
+}
+
+.about-description {
+  font-family : Roboto;
+  font-weight : 300;
+  font-size : 1.3rem;
+}
+.about-mascot-container {
+  display : flex;
+  flex-direction: column;
+  align-items: center;
+}
+.about-icon { 
+  width : 50vw;
+  max-width : 400px;
+}
+
+
+
+/* Questionable source */
+.questionable-source-container {
+  background-color: white;
+  padding : 5vmin;
+  height : 50vh;
+  margin : 3vmin;
+  
+}
+.questionable-source-container>.fake-news-container {
+  display : flex;
+  font-size : 10rem;
+  flex-direction : row;
+  align-items : center;
+}
+
+
+
+.questionable-source-container>.danger-container {
+  display : flex;
+  flex-direction : row;
+  align-items : center;
+}
+
+.questionable-source-description {
+  font-size : 1.3rem;
+}
+
+.questionable-source-container .questionable-source-quote {
+  font-family : Roboto;
+  font-weight : 300;
+  color : grey;
+  font-size : 1.2rem;
+}
+.questionable-source-container .questionable-source-author {
+  font-size : 1rem;
+  
+}
+
+.app-submit-button {
+  height : 2em;
+  font-size : 1.3rem;
+}
+
+.app-input {
+  font-size : 1.3rem;
+  height : 2em;
+}
+
+
+/* TEST SOURCES */
+
+.test-sources-container {
+  display : flex;
+  flex-direction : column;
+  padding : 5vmin;
+  text-align : justify;
+}
+
+.test-sources-title {
+  font-size : 2rem;
+  font-weight : 400;
+  margin-bottom : 1em;
+}
+.testable-source {
+  margin-bottom : 1.5em;
+}

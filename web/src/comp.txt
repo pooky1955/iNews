@@ -1,0 +1,140 @@
+fc /W/C/A Appmobile.css Appnormal.css 
+fc /W/C Appmobile.css Appnormal.css 
+Comparing files Appmobile.css and APPNORMAL.CSS
+***** Appmobile.css
+
+@media (max-width : 1200px){
+/* BOOTSTRAP CARDS */
+.card-title {
+  font-size : 1.4rem;
+  text-transform : uppercase;
+  align-items : center;
+  font-weight : 800;
+}
+***** APPNORMAL.CSS
+
+@import url('https://fonts.googleapis.com/css?family=Oswald|Montserrat:100,300,800|Roboto:100,300,400,900&display=swap');
+/* @media (min-width : 1200px){ */
+.App {
+  width : 100vw;
+  font-size : 4vmin;
+  height : 100vh;
+  background : white;
+}
+*****
+
+***** Appmobile.css
+
+hr.card-line {
+  width : 95%;
+  border : 0.03rem solid grey;
+  align-self : center;
+}
+***** APPNORMAL.CSS
+
+body {
+  font-size : 16px;
+}
+@media (max-width : 600px){
+  body {
+    font-size : 10px;
+  }
+}
+*****
+
+***** Appmobile.css
+
+.card-header {
+  font-family : Oswald, "sans-serif";
+  text-transform : uppercase;
+  justify-content : center;
+  font-weight : 300;
+  max-height : 8vmin;
+  flex-direction : column;
+  border : none;
+  align-items : center;
+  display : flex;
+  font-size : 1.4rem;
+}
+***** APPNORMAL.CSS
+
+
+/* BOOTSTRAP CARDS */
+.card-title {
+  font-size : 2.3rem;
+  text-transform : uppercase;
+  align-items : center;
+  font-weight : 800;
+}
+*****
+
+***** Appmobile.css
+
+.chart-container {
+***** APPNORMAL.CSS
+
+hr.card-line {
+  width : 95%;
+  border : 0.03rem solid grey;
+  align-self : center;
+}
+
+.card-header {
+  font-family : Oswald, "sans-serif";
+  text-transform : uppercase;
+  justify-content : center;
+  font-weight : 300;
+  max-height : 15vmin;
+  flex-direction : column;
+  border : none;
+  align-items : center;
+  display : flex;
+  font-size : 2.4rem;
+}
+
+.chart-container {
+*****
+
+***** Appmobile.css
+.result-label {
+  font-size : 2rem;
+  text-transform : uppercase;
+***** APPNORMAL.CSS
+.result-label {
+  font-size : 4rem;
+  text-transform : uppercase;
+*****
+
+***** Appmobile.css
+}
+.dashboard-container {
+***** APPNORMAL.CSS
+}
+/* END OF FRONT PAGE */
+
+.dashboard-container {
+*****
+
+***** Appmobile.css
+  display : flex;
+  flex-direction : column;  
+}
+.dashboard-side-container {
+***** APPNORMAL.CSS
+  display : flex;
+  flex-direction : row;  
+}
+
+.dashboard-side-container {
+*****
+
+***** Appmobile.css
+
+}
+
+
+***** APPNORMAL.CSS
+
+/* } */
+*****
+

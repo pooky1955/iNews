@@ -1,0 +1,22 @@
+
+@media (min-width : 1350px){
+
+
+.main-nav .main-nav-link, .main-nav .nav-brand {
+  font-size : 2rem;
+}
+
+/* BOOTSTRAP CARDS */
+.card-title {
+  font-size : 2.3rem;
+}
+
+/* END BOOTSTRAP CARDS */
+
+.dashboard-container {
+  flex-direction : row;  
+}
+
+
+
+}
