@@ -1,0 +1,26 @@
+{
+  "manifest_version" : 2,
+  "name" : "iNews",
+  "description" : "Instantly detect urls and determine their credibility",
+  "version" : "1",
+  "author" : "James Liang",
+  "content_scripts" : [{
+    "matches" : [
+      "<all_urls>"
+    ],
+    "js" : ["content.js"]
+  }],
+  "background" : {
+    "scripts" : ["background.js"]
+  },
+  "icons" : {
+    "128" : "logo.png"
+  },
+  "page_action" : {
+    "default_popup" : "popup.html"
+  },
+  "web_accessible_resources" : [
+    "images/*.png"
+  ]
+
+}

@@ -8,7 +8,7 @@ from nltk.stem import WordNetLemmatizer
 
 from mbfc import request_bias, request_facts
 from snope_util import Snoper
-from web_util import GoogleScraper
+from web_util import GoogleScraper, get_host
 
 
 stopwords_set = set(stopwords.words("english"))
@@ -61,6 +61,8 @@ def media_search():
   data = request.get_json()
   pprint(data)
   media = data["name"]
+  if "http" in media:
+    media = get_host(media)
   return json.dumps(request_bias(media))
 
 

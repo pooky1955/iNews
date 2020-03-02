@@ -3,6 +3,7 @@ import pandas as pd
 from pprint import pprint
 from web_util import get_bodies, parse_articles
 from difflib import SequenceMatcher
+import time
 import re
 
 
@@ -48,12 +49,15 @@ def make_df(parsed_results):
 def request_facts(keywords):
   urls = make_urls(keywords)
   all_results = []
+  print("finished all urls")
   for url in urls:
     all_results.extend(keywords_search(url))
-
+  print("finished appending keyword search")
   parsed_results = [parse_hit(hit) for hit in all_results]
   parsed_results = filter(lambda x : x != None,parsed_results)
+  print("finished parsing hits")
   df = make_df(parsed_results)
+  print("finished making dfs")
   new_df = search_urls(df["url"])
   return new_df
 
@@ -82,21 +86,38 @@ def argmax(iterable_obj):
   return max_ind, max_el
 
 
+def extract_media_bias(description):
+  category_names = []
+  for token in description.split():
+    if token == token.upper() and len(token) > 2:
+      category_names.append(token)
+    else:
+      break
+  return ' '.join(category_names)
+
+def find_media_credibility(category_name):
+  compressed = ''.join(category_name.lower().split())
+  dubious_categories = ["questionablesource","conspiracy-pseudoscience"]
+  return not compressed in dubious_categories
+
 def request_bias(media):
   hits = media_search(media,lim=4)  
   parsed_hits = [parse_media(hit) for hit in hits]
+  parsed_hits = [parsed_hit for parsed_hit in parsed_hits if parsed_hit["name"] != "Sources Pending"]
   if len(parsed_hits) == 0:
     return dict(hasData=False)
   else : 
 
     similarities = [similar(parsed_hit["name"],media) for parsed_hit in parsed_hits]
+
     argmax_simil, max_ratio = argmax(similarities)
     print(f"TOP RATIO : {max_ratio}") 
     chosen_hit = parsed_hits[argmax_simil]
-    if chosen_hit["name"] == "Sources Pending":
-      return dict(hasData=False)  
-    else :
-      return chosen_hit
+    category = extract_media_bias(chosen_hit["description"])
+    credibility = find_media_credibility(category)
+    chosen_hit = dict(hasData=True,credibility=credibility,category=category,**chosen_hit)
+    print(chosen_hit)
+    return chosen_hit
 
 def media_search(media,lim):
   session = HTMLSession()
@@ -139,7 +160,7 @@ if __name__ == "__main__":
   print("Test done.")
 
   print("Starting test.")
-  media = "tatersgonnatate"
-  df = request_bias(media)
-  print(df)
+  media = "breitbart"
+  bias = request_bias(media)
+  print(bias)
   print("Test done.")
