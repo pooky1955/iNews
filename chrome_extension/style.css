@@ -1,0 +1,35 @@
+.inews-popup {
+  background : white;
+  border-radius : 1vmin;
+  box-shadow : 0 0 5px hsl(0,10%,50%);
+  width : 50vmin;
+  padding : 1em;
+}
+
+.inews-popup-title {
+  font-size : 2rem;
+  text-decoration: bold;
+  word-wrap: none;
+}
+
+.inews-popup-source {
+  font-size : 1rem;
+  text-decoration : italic;
+}
+
+.inews-popup-details {
+  font-size : 1.2rem;
+}
+
+.inews-popup-xmark {
+  font-size : 2rem;
+  cursor: pointer;
+  position : absolute;
+  left : 90%;
+  top : 5%;
+  color : lightgray;
+}
+
+.inews-popup-xmark:hover {
+  color : black;  
+}
