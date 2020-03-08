@@ -8,12 +8,12 @@ from nltk.stem import WordNetLemmatizer
 
 from mbfc import request_bias, request_facts
 from snope_util import Snoper
-from web_util import GoogleScraper, get_host
+from web_util import  get_host, get_info
 
+from log_util import finish, alert, info
 
 stopwords_set = set(stopwords.words("english"))
 lemmatizer = WordNetLemmatizer()
-google_scraper = GoogleScraper()
 
 app = Flask(__name__)
 CORS(app)
@@ -53,16 +53,20 @@ def snope_search():
     return json.dumps(result)
   else:
     data = dict(hasData=False)
+    finish("Responding to snopes")
     return json.dumps(data)
 
 
 @app.route("/mediacheck",methods=["POST"])
 def media_search():
   data = request.get_json()
-  pprint(data)
   media = data["name"]
+
+  alert(f"Received data for media check {media}")
   if "http" in media:
     media = get_host(media)
+  info(f"Media detected : {media}")
+  finish("Responded to /mediacheck")
   return json.dumps(request_bias(media))
 
 
@@ -70,8 +74,10 @@ def media_search():
 def extract_info():
   data = request.get_json()
   url = data["url"]
-  print(f"Url received : {url}")  
-  data = google_scraper.get_info(url)
+  alert(f"Received extract request for {url}")
+  info(f"Url received : {url}")  
+  data = get_info(url)
+  finish("Responded to /extract")
   return json.dumps(data)
 
 @app.route("/")

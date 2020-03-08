@@ -8,6 +8,7 @@ from googletrans import Translator
 from nltk.corpus import stopwords
 import re
 from string import punctuation
+from log_util import info
 stopwords_set = set(stopwords.words("english"))
 
 
@@ -28,40 +29,35 @@ def get_set_event_loop():
       return asyncio.get_event_loop()
     raise e
 
-def get_bodies(urls):
+def get_bodies(df):
   bodies = []
+  urls = df["url"]
+  titles = df["title"]
   filtered_urls = []
-
+  filtered_titles = []
+  indices = []
   loop = get_set_event_loop()
   loop.run_until_complete(
     asyncio.gather(
-      *[get_url(url,bodies,filtered_urls) for url in urls]
+      *[get_url(url,title,bodies,filtered_urls,filtered_titles,indices,i) for i,(url,title) in enumerate(zip(urls,titles))]
     )
   )
-  return bodies, filtered_urls
+  return bodies, filtered_urls, filtered_titles, indices
 
 def get_host(url):
   without_http = url.split("//")[1]
-  splitted = without_http.split(".")
-  if splitted[0] == "www":
-    return splitted[1]
-  else:
-    return splitted[0]
+  center =  without_http.split("/")[0]
+  return center.split(".")[-2]
 
 def parse_article(html):
   soup = BeautifulSoup(html,features="html.parser")
   p_tags = soup.find_all('p')
-  title_tag = soup.find("title")
-  try:
-    title = title_tag.get_text()
-  except:
-    title = "Title not found :("
 
   paragraphs = [p_tag.get_text() for p_tag in p_tags]
   body = ' '.join(paragraphs)
-  return body, title
+  return body
 
-async def get_url(url,bodies,urls):
+async def get_url(url,title,bodies,urls,titles,indices,i):
   try :
     async with aiohttp.ClientSession() as session:
       async with session.get(url) as resp:
@@ -69,19 +65,21 @@ async def get_url(url,bodies,urls):
           data = await resp.text()
           bodies.append(data)
           urls.append(url)
+          titles.append(title)
+          indices.append(i)
   except Exception as e:
     print(f"Exception occured with url {url}")
-class GoogleScraper():
-  def __init__(self):
-    pass
-  def get_info(self,url):
+def get_info(url):
     searched_article = Article(url)
     searched_article.download()
     searched_article.parse()
     
     headline = searched_article.title
     translator = Translator()
-    headline = translator.translate(headline).text
+    translation = translator.translate(headline)
+    headline = translation.text
+    detected_language = translation.src
+    info(f"Detected Language : {detected_language}")
     keywords = [token for token in headline.split()]
     keywords = [token for token in keywords if not token in stopwords_set]
 
@@ -92,39 +90,11 @@ class GoogleScraper():
 
     return data
 
-  def search(self,query,limit):
-    df = pd.DataFrame()
 
-    urls = self._search(query,limit)
-    
-    
-    print("Found all urls")
-
-    bodies, filtered_urls = get_bodies(urls)
-    hosts = [get_host(url) for url in filtered_urls]
-    print(f"Retrieved {len(bodies)} bodies")
-    clean_bodies, clean_titles = parse_articles(bodies)
-
-    df["bodies"] = clean_bodies
-    df["headlines"] = clean_titles
-    df["publishers"] = hosts
-    df["urls"] = filtered_urls
-
-    return df
-  def _search(self,query,limit):
-    urls = [url for url in search_news(stop=limit,query=query)]
-    return urls
  
 def parse_articles(bodies):
   parsed = [parse_article(body) for body in bodies]
-  bodies = []
-  titles = []
-  for parsed_i in parsed:
-    bodies.append(parsed_i[0])
-    titles.append(parsed_i[1])
-  return bodies, titles
+  return parsed
 
 if __name__ == "__main__":
-  google_scraper = GoogleScraper()
-  df_results = google_scraper.search("trump impeachment",10)
-  print(df_results.head(5))
+  print("Web Util file successfully runned")

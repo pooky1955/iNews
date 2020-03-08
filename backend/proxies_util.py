@@ -14,5 +14,5 @@ def get_proxies():
     if https_enabled == "yes" and proxy_type == "elite proxy":
       complete_ip = f"{ip}:{port}"
       all_ips.append(complete_ip)
-
-all_proxies = get_proxies()
+if __name__ == "__main__":
+  all_proxies = get_proxies()

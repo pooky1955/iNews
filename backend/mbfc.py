@@ -5,7 +5,8 @@ from web_util import get_bodies, parse_articles
 from difflib import SequenceMatcher
 import time
 import re
-
+from datetime import datetime
+import numpy as np
 
 def keywords_search(url):
   session = HTMLSession()
@@ -58,7 +59,9 @@ def request_facts(keywords):
   print("finished parsing hits")
   df = make_df(parsed_results)
   print("finished making dfs")
-  new_df = search_urls(df["url"])
+  new_df = search_urls(df)
+  current_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S-results.csv")
+  new_df.to_csv(current_date,encoding="utf-8",index=False)
   return new_df
 
 def strip_spaces(text):
@@ -128,12 +131,12 @@ def media_search(media,lim):
 
 def search_urls(urls):
   new_df = pd.DataFrame()
-  bodies, filtered_urls = get_bodies(urls)
-  parsed_bodies, parsed_titles = parse_articles(bodies)
+  bodies, filtered_urls, titles, indices = get_bodies(urls)
+  parsed_bodies = parse_articles(bodies)
   
   new_df["bodies"] = parsed_bodies
-  new_df["urls"] = urls
-  new_df["headlines"] = parsed_titles
+  new_df["urls"] = filtered_urls
+  new_df["headlines"] = titles
 
   return new_df
   

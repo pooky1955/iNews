@@ -38,6 +38,6 @@ class Snoper():
       return None
     data = self.get_first(hits)
     return data
-
-snoper = Snoper()
-hit = snoper.search_one(["trump","kkk","father"])
+if __name__ == "__main__":
+  snoper = Snoper()
+  hit = snoper.search_one(["trump","kkk","father"])
