@@ -25,9 +25,7 @@ export const App = () => {
     backgroundColor = "white"
   }
 
-const StyledBackgroundDiv = styled.div`
-    background-color : ${backgroundColor}
-  `
+  document.body.style.backgroundColor = backgroundColor
 
   const [language,setLanguage] = useState("en")
 
@@ -35,7 +33,7 @@ const StyledBackgroundDiv = styled.div`
   return (
 
 <LanguageProvider value = {language}>
-    <StyledBackgroundDiv className="App">
+    <div className="App">
       <NavBar linkUrls={["/", "/about","/demo"]} linkNames={["Home", "About","Demo"]} updateLanguage = {(language)=>{setLanguage(language)}} />
 
       <div className="content">
@@ -51,7 +49,7 @@ const StyledBackgroundDiv = styled.div`
           </Switch>
         </Router>
       </div>
-    </StyledBackgroundDiv>
+    </div>
 </LanguageProvider>
   )
 

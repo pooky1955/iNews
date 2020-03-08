@@ -10,21 +10,22 @@ const StyledTitle = styled(Card.Title)`
   text-align : center;
 `
 
-export const StyledCard = ({ title, header, body, links }) => {
+export const StyledCard = ({ title, header, body, links, fullPage }) => {
   return (
-    <Card>
+    <Card className = {fullPage? "full-page" : ""}>
 
       {header !== undefined &&
         <React.Fragment>
           <StyledHeader>{header}</StyledHeader>
           <hr className = "card-line"/>
         </React.Fragment>}
-      <Card.Body>
+      <Card.Body as="span">
         <StyledTitle>{title}</StyledTitle>
-        <Card.Text>
+        <Card.Text as="span">
           {body}
         </Card.Text>
-        {links && links.map((link) => <Card.Link className = "card-link"><a href={link}>{link}</a></Card.Link>)}
+        <br/>
+        {links && links.map((link) => <a href={link} className = "card-link">{link}</a>)}
       </Card.Body>
     </Card>
   )

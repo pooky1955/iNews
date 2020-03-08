@@ -2,6 +2,7 @@ import React from "react"
 import fakeIcon from "./images/false.png"
 import trueIcon from "./images/true.png"
 import {Loader} from "./Loader"
+import {StyledCard} from "./Card.js"
 
 const SATIRE = "satire"
 const NOTRELIABLE = ["conspiracypseudoscience", "questionablesource"]
@@ -31,8 +32,10 @@ function partOf(array, targetEl) {
 
 export const ArticleClass = ({ sourceCategory, rating, credibility }) => {
   
-  if (!sourceCategory && !rating && !credibility){
-    return <Loader text = "Waiting for results"/>
+  if ((!sourceCategory || !rating) && !credibility){
+    const body = <Loader text = "Waiting for results"/>
+    const cardProps = {body}
+    return <StyledCard {...cardProps}/>
   }
   
   let [isFake, causes] = checkFake(credibility, rating, sourceCategory)

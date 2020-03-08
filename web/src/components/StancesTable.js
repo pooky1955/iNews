@@ -1,9 +1,7 @@
-import React from "react"
-import { Table, Badge } from "react-bootstrap"
+import React, { useState } from "react"
 import styled from "styled-components"
-const AGREE = 0
-const DISAGREE = 1
-const DISCUSSES = 2
+import {Loader} from "./Loader.js"
+import { StyledCard } from "./Card"
 
 function* zip(...arrays) {
   for (let i = 0; i < arrays[0].length; i++) {
@@ -15,64 +13,81 @@ function* zip(...arrays) {
   }
 }
 
-const StanceBadge = ({ stance }) => {
-  if (stance === AGREE) {
-    return <Badge variant="success" pill>Agree</Badge>
-  } else if (stance === DISAGREE) {
-    return <Badge variant="danger" pill>Disagree</Badge>
-
-  } else if (stance === DISCUSSES) {
-    return <Badge variant="secondary" pill>Discusses</Badge>
-
+function* enumerate(iterable) {
+  let counter = 0
+  for (let object of iterable) {
+    yield [counter, object]
+    counter++
   }
 }
 
 
-const StyledLink = styled.a`
-  color : black;
-  &:hover, &:focus {
-    text-decoration : underline;
-
-  }
-
-`
-
-const StancesTable = ({ news }) => {
-  // 
-  const { publishers, headlines, stances, urls } = news
-  let tableHeaders = <thead>
-    <tr>
-      <th>Publisher</th>
-      <th>Headlines</th>
-      <th>Stances</th>
-      <th>Urls</th>
-    </tr>
-  </thead>
-
-  let tableRows = []
-
-
-  for (let [publisher, headline, stance, url] of zip(publishers, headlines, stances, urls)) {
-    tableRows.push(
-      <tr>
-        <td>{publisher}</td>
-        <td>{headline}</td>
-        <td><StanceBadge stance={stance} /></td>
-        <td><StyledLink href={url}>{url}</StyledLink></td>
-      </tr>
-    )
-  }
+function shorten(headline, maxWords) {
+  let shortened = headline.split(" ").slice(0, maxWords).join(" ")
+  return shortened
+}
+const allStancesCaps = ["Agree","Disagree","Discuss"]
+const allStances = ["agree", "disagree", "discuss"]
+const StanceChanger = ({ updateStance }) => {
+  let stancesButton = allStancesCaps.map((stance, index) => <button className={`btn change-stance-btn ${stance.toLowerCase()}-btn`} onClick={() => {
+    updateStance(index)
+  }}>{stance}</button>)
   return (
-
-    <div style={{overflow : "scroll",width : "90%",}}>
-      <h2 style={{ textAlign: "center" }}>Look at the news we found</h2>
-      <Table responsive size="sm">
-        {tableHeaders}
-        {tableRows}
-      </Table>
-    </div>
+    <React.Fragment>
+      <span className="change-stance-text">Wrongly classified? Help us change it!</span>
+      <div className = "stance-changer-button">
+      {stancesButton}
+      </div>
+    </React.Fragment>
   )
+}
 
+export const StancesTable = ({ news, updateStances, hasData }) => {
+  // 
+  if (news === undefined) {
+    const body = <Loader text="Waiting for Factual News Search"></Loader>
+    const header = "Factual News Search"
+    const cardProps = { body, header }
+    return <StyledCard {...cardProps} />
+  } else {
+    const { publishers, headlines, stances, urls } = news
+    let tableRows = []
+    //sorry ha i did too much python and just love to use zip and enumerate :)
+    for (let [index, [publisher, headline, stance, url]] of enumerate(zip(publishers, headlines, stances, urls))) {
+      let shortened = shorten(headline, 10) + " [...]"
+      let stanceText = allStances[stance]
+      let stanceCapsText = allStancesCaps[stance]
+      tableRows.push(
+        <div className={[stanceText, "stance-row"].join(' ')}>
+          <div className="side-banner"> </div>
+          <div className="right-side-banner">
+            <div>
+              <div className = "stance-headline">
+                <span>{shortened} </span> <span className="stance-publisher">by {publisher.toUpperCase()}</span>
+              </div>
+              <div className = "stance-classification">
+                Stance detected : <span className={[`${stanceText}-badge`, "stance-badge"].join(" ")}>{stanceCapsText}</span>
+              </div>
+              <div className = "stance-changer">
+                <StanceChanger updateStance={(newStance) => {
+                  debugger
+                  updateStances(index, newStance)
+                }} />
+              </div>
+              <a href={url} className="btn link-btn" target="_blank">Visit website</a>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    const body = (<div className="stance-table">
+      {tableRows}
+    </div>)
+    const header = "Factual News Search Table View"
+    const cardProps = { body, header }
+    return (<StyledCard {...cardProps} />)
+
+  }
 }
 
 export default StancesTable

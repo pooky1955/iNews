@@ -115,6 +115,7 @@ hr.card-line {
   align-items: center;
   background : white;
   padding-left : 5vmin;
+  padding-right : 1vmin;
 }
 .result-icon {
   width : 10vmin;
@@ -127,6 +128,7 @@ hr.card-line {
 
 .result-label {
   font-size : 2rem;
+
   text-transform : uppercase;
   font-family : Oswald;
 }
@@ -182,23 +184,25 @@ hr.card-line {
 .app-form-button:hover {
   box-shadow : 2px 2px 5px  rgb(152, 203, 224);
 }
-.dashboard-container {
+.dashboard-top-container {
   display : flex;
   background : whitesmoke;
   flex-direction : column;  
   width : 100vw;
-  height : 100vh;
 }
 
-.dashboard-container div {
+.dashboard-top-container div {
   flex-grow : 1
 }
 .dashboard-side-container {
   display : flex;
   flex-direction : column;
 }
-.dashboard-side-container>div {
+.dashboard-side-container>div, .dashboard-bottom-container>div {
   margin : 3vmin;
+  border-radius : 0.3em;
+  border : none;
+  box-shadow: 0px 0px 0.05em grey;
 }
 
 
@@ -294,4 +298,114 @@ hr.card-line {
 }
 .testable-source {
   margin-bottom : 1.5em;
+}
+
+
+
+/* STANCE TABLE */
+.stance-table {
+  overflow-y: scroll;
+  height : auto;
+}
+
+
+.stance-table-headline {
+  font-size : 1rem;
+}
+.stance-row {
+  margin-bottom : 2em;
+  color : black;
+  display : flex;
+  width : 100%;
+  flex-direction : row;
+}
+
+.right-side-banner {
+  width : 80%;
+  display: flex;
+  flex-direction: column;
+  padding-left : 2em;
+}
+.side-banner {
+  flex-grow : 0 !important;
+  width : 5px !important;
+}
+.agree>.side-banner {
+  background-color : hsl(128,51%,59%);
+}
+
+.disagree>.side-banner {
+  background-color :hsl(0, 71%, 61%);
+}
+
+.discuss>.side-banner {
+  background-color : hsl(0, 10%, 65%);
+}
+
+
+.stance-badge {
+  font-weight : 700;
+
+}
+
+.dashboard-container {
+  display : flex;
+  flex-direction : column;
+}
+
+.agree-badge  {
+  color : hsl(128,51%,59%);
+}
+.disagree-badge {
+  color : hsl(0, 71%, 61%);
+}
+
+.discuss-badge {
+  color : hsl(0, 10%, 65%);
+}
+
+.link-btn {
+  background : hsl(128, 41%, 79%);
+}
+
+.change-stance-text {
+  margin-top : 0.3em;
+  display: block;
+}
+.stance-publisher {
+  font-size : 0.75em;
+}
+
+.stance-headline {
+  font-size : 2rem;
+}
+
+.stance-classification {
+  font-weight : 500;
+}
+.stance-changer {
+  font-size : 1rem;
+}
+
+.stance-changer-button {
+  margin-bottom : 0.5em;
+}
+
+
+
+
+.change-stance-btn.agree-btn:hover {
+  background: hsl(128, 41%, 79%);
+}
+.change-stance-btn.disagree-btn:hover {
+  background: hsl(0, 71%, 61%);
+}
+.change-stance-btn.discuss-btn:hover {
+  background: hsl(0, 10%, 65%);
+}
+
+
+.full-page {
+  width : 100vw;
+  height : 100vh;
 }

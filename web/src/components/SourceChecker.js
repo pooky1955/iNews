@@ -54,19 +54,22 @@ export const SourceChecker = ({ source, setSourceCategory }) => {
       setLoading(false)
     })()
   }, [])
-
+  const header = "Media Bias Fact Check"
   if (isError) {
-    return <Error actionString="searching on Media Bias Fact Check"></Error>
+    const body = <Error actionString="searching on Media Bias Fact Check"></Error>
+    const cardProps = {header,body}
+    return <StyledCard {...cardProps}/>
   }
   if (loading) {
-    return <Loader text="Searching on Media Bias Fact Check"></Loader>
+    const body = <Loader text="Searching on Media Bias Fact Check"></Loader>
+    const cardProps = {header,body}
+    return <StyledCard {...cardProps}/>
   }
   if (hasData){
     
   const { description, url } = data
   if (description === undefined || url === undefined){
     const body = "This source wasn't registered in Media Bias Fact Check"
-    const header = "Media Bias Fact Check"
     const cardProps = {body,header}
     return <StyledCard {...cardProps}/>
     
@@ -85,7 +88,8 @@ export const SourceChecker = ({ source, setSourceCategory }) => {
   return (<StyledCard {...cardProps}></StyledCard>)
 
   } else {
-    return null
+    return <div></div>
+
   }
 }
 

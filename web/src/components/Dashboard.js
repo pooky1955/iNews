@@ -10,7 +10,9 @@ import { StatisticsPanel } from "./Statistics"
 import { Loader } from "./Loader"
 import { Error } from "./Error"
 import { ArticleClass, standardize } from "./ArticleClass"
-import {QuestionableSource} from "./QuestionnableSource"
+import { QuestionableSource } from "./QuestionnableSource"
+import {StyledCard} from "./Card"
+import StancesTable from "./StancesTable"
 
 const size = {
   mobileS: '320px',
@@ -62,9 +64,13 @@ export const DashBoardContainer = ({ encodedUrl }) => {
     })()
   }, [])
   if (loading) {
-    return <Loader text="Extracting info on article url" />
+    const body = <Loader text="Extracting info on article url" />
+    const cardProps = { body }
+    return <StyledCard {...cardProps} fullPage/>
   } else if (error) {
-    return <Error actionString="extracting info on article url" />
+    const body = <Error actionString="extracting info on article url" />
+    const cardProps = { body }
+    return <StyledCard {...cardProps} fullPage/>
   }
   if (data !== undefined) {
     return <DashBoard {...data} />
@@ -81,52 +87,53 @@ export const DashBoard = ({ headline, articleKeywords, mediaName }) => {
 
 
   const [credibility, setCredibility] = useState(undefined)
+  const [newsData, setNewsData] = useState(undefined)
   const [sourceCategory, setSourceCategory] = useState(undefined)
   const [rating, setRating] = useState(undefined)
-  
+
   if (!headline || !articleKeywords || !mediaName) {
     return <Redirect to="/"></Redirect>
   }
-  
+
   let articleProps = { credibility, rating, sourceCategory }
   if (sourceCategory !== undefined) {
     let standardizedSourceCategory = standardize(sourceCategory)
     if (standardizedSourceCategory === QUESTIONABLESOURCE) {
-      return (
-        
-        <QuestionableSource></QuestionableSource>
-        
-      )
+      return <QuestionableSource />
     }
   }
 
 
   return (
     <div className="dashboard-container">
-      <div className="dashboard-side-container">
+      <div className="dashboard-top-container">
+        <div className="dashboard-side-container">
+          <ArticleClass {...articleProps} />
+          <StatisticsPanel {...articleProps} />
+          <NewsChecker headline={headline} setCredibility={(credibility) => {
+            setCredibility(credibility)
+          }} setData={(news) => { setNewsData(news) }} data={newsData}></NewsChecker>
 
-
-        <ArticleClass {...articleProps} />
-        <StatisticsPanel {...articleProps} />
-        <NewsChecker headline={headline} setCredibility={(credibility) => {
-          setCredibility(credibility)
-        }}></NewsChecker>
+        </div>
+        <div className="dashboard-side-container">
+          <SnopesChecker articleKeywords={articleKeywords} setRating={(ratings) => {
+            setRating(ratings[0])
+          }} />
+          <SourceChecker source={mediaName} setSourceCategory={(sourceCategory) => {
+            setSourceCategory(sourceCategory)
+          }}></SourceChecker>
+        </div>
       </div>
-      <div className="dashboard-side-container">
-
-        <SnopesChecker articleKeywords={articleKeywords} setRating={(ratings) => {
-          setRating(ratings[0])
-        }} />
-
-
-        <SourceChecker source={mediaName} setSourceCategory={(sourceCategory) => {
-          setSourceCategory(sourceCategory)
-        }}></SourceChecker>
-
+      <div className="dashboard-bottom-container">
+        <StancesTable news={newsData} updateStances={(index, newStance) => {
+          let { stances, ...rest } = newsData
+          let newStances = stances.slice() // copies array
+          newStances[index] = newStance
+          let newNewsData = { stances: newStances, ...rest }
+          setNewsData(newNewsData)
+        }}></StancesTable>
       </div>
     </div>
   )
-
-
 }
 export default DashBoard

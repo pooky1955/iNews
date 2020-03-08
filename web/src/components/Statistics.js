@@ -1,5 +1,6 @@
 import React from "react"
 import { Card } from "react-bootstrap"
+import {StyledCard} from "./Card"
 import styled from "styled-components"
 import Loader from "./Loader"
 
@@ -41,7 +42,9 @@ const DefaultContainer = ({ children, defaultValue = "", value }) => {
 export const StatisticsPanel = ({ credibility, rating, sourceCategory }) => {
 
   if (!credibility && !rating && !sourceCategory) {
-    return <Loader text="Waiting for results to show up"></Loader>
+    const body =  <Loader text="Waiting for results to show up"></Loader>
+    const cardProps = {body}
+    return <StyledCard {...cardProps}/>
   }
   return (
 

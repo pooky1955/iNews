@@ -31,10 +31,16 @@ export const SnopesChecker = ({ articleKeywords, setRating }) => {
 
   
   if (isError) {
-    return <Error actionString="searching Snopes"></Error>
+    const header = "Fact checkers"
+    const body = <Error actionString="searching Snopes"></Error>
+    const cardProps = {header,body}
+    return <StyledCard {...cardProps}/>
   }
   if (loading) {
-    return <Loader text="Searching Snopes"></Loader>
+    const header = "Fact checkers"
+    const body = <Loader text="Searching Snopes"></Loader>
+    const cardProps = {header,body}
+    return <StyledCard {...cardProps}/>
   }
 
   if (hasData) {
