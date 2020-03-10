@@ -40,15 +40,16 @@ const DefaultContainer = ({ children, defaultValue = "", value }) => {
 
 
 export const StatisticsPanel = ({ credibility, rating, sourceCategory }) => {
-
+  const header = "iNews Statistics"
   if (!credibility && !rating && !sourceCategory) {
     const body =  <Loader text="Waiting for results to show up"></Loader>
-    const cardProps = {body}
+    const cardProps = {body,header}
     return <StyledCard {...cardProps}/>
   }
   return (
 
     <Card className = "statistics-panel">
+      <Card.Header>iNews Statistics</Card.Header>
       <Card.Body className="d-flex flex-row align-items-center flex-wrap" style={{ justifyContent: "space-evenly" }}>
         <DefaultContainer value={credibility}>
           <CredibilityContainer credibility={credibility} />

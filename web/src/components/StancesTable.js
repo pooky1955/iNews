@@ -44,9 +44,9 @@ const StanceChanger = ({ updateStance }) => {
 
 export const StancesTable = ({ news, updateStances, hasData }) => {
   // 
+  const header = "Factual News Search Table View"
   if (news === undefined) {
     const body = <Loader text="Waiting for Factual News Search"></Loader>
-    const header = "Factual News Search"
     const cardProps = { body, header }
     return <StyledCard {...cardProps} />
   } else {
@@ -83,7 +83,6 @@ export const StancesTable = ({ news, updateStances, hasData }) => {
     const body = (<div className="stance-table">
       {tableRows}
     </div>)
-    const header = "Factual News Search Table View"
     const cardProps = { body, header }
     return (<StyledCard {...cardProps} />)
 

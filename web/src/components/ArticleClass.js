@@ -32,15 +32,16 @@ function partOf(array, targetEl) {
 
 export const ArticleClass = ({ sourceCategory, rating, credibility }) => {
   
+  const header = "iNews Results"
   if ((!sourceCategory || !rating) && !credibility){
     const body = <Loader text = "Waiting for results"/>
-    const cardProps = {body}
+    const cardProps = {body,header}
     return <StyledCard {...cardProps}/>
   }
   
   let [isFake, causes] = checkFake(credibility, rating, sourceCategory)
   if (isFake) {
-    return (
+    const body  = (
       <div className="result">
         <img src={fakeIcon}  alt = "fake-news-icon" className="result-icon mr-4" />
 
@@ -52,8 +53,10 @@ export const ArticleClass = ({ sourceCategory, rating, credibility }) => {
         </div>
       </div>
     )
+    const cardProps = {body,header}
+    return <StyledCard {...cardProps}/>
   } else {
-    return (
+    const body =  (
       <div className="result">
         <img src={trueIcon} alt = "true-news-icon" className="result-icon mr-4" />
 
@@ -65,7 +68,10 @@ export const ArticleClass = ({ sourceCategory, rating, credibility }) => {
         </div>
       </div>
     )
+    const cardProps = {body, header}
+    return <StyledCard {...cardProps}/>
   }
+
 }
 
 function checkFake(credibility, rating, sourceCategory) {

@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import json
 import requests
 from pprint import pprint
+import re
 
 
 
@@ -9,10 +10,13 @@ class Snoper():
   def __init__(self):
     pass
   def search(self,keywords):
+    word_patt = re.compile(rf"[^a-zA-Z]")
+    keywords = [word_patt.sub("",word) for word in keywords]
+    print(keywords)
     query = '%20'.join(keywords)
     url = "https://yfrdx308zd-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%20(lite)%203.21.1%3Binstantsearch.js%201.11.15%3BJS%20Helper%202.19.0&x-algolia-application-id=YFRDX308ZD&x-algolia-api-key=7da15c5275374261c3a4bdab2ce5d321"
     body = '{"requests":[{"indexName":"wp_live_searchable_posts","params":"query='+query+'&hitsPerPage=10&page=0&facetingAfterDistinct=true&facets=%5B%22taxonomies_hierarchical.category.lvl0%22%2C%22post_author.display_name%22%2C%22post_date%22%5D&tagFilters="}]}'
-    resp = requests.post(url,data=body)
+    resp = requests.post(url,data=body,headers={"content-type" : "application/json; charset=utf-8"})
     to_json = resp.json()
     hits = to_json["results"][0]["hits"]
     return hits

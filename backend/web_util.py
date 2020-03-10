@@ -8,7 +8,7 @@ from googletrans import Translator
 from nltk.corpus import stopwords
 import re
 from string import punctuation
-from log_util import info
+from log_util import info,alert
 stopwords_set = set(stopwords.words("english"))
 
 
@@ -47,7 +47,16 @@ def get_bodies(df):
 def get_host(url):
   without_http = url.split("//")[1]
   center =  without_http.split("/")[0]
-  return center.split(".")[-2]
+  # usually sub-extensions are only two letters maximum
+  index = -1
+  split_center = center.split(".")[:-1]
+  for word in reversed(split_center):
+    if len(word) > 2:
+      return word
+  alert(f"Exception occured with url {url}")
+  return split_center[-2]
+  
+
 
 def parse_article(html):
   soup = BeautifulSoup(html,features="html.parser")

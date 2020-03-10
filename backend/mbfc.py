@@ -60,8 +60,6 @@ def request_facts(keywords):
   df = make_df(parsed_results)
   print("finished making dfs")
   new_df = search_urls(df)
-  current_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S-results.csv")
-  new_df.to_csv(current_date,encoding="utf-8",index=False)
   return new_df
 
 def strip_spaces(text):

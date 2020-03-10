@@ -96,12 +96,12 @@ export const DashBoard = ({ headline, articleKeywords, mediaName }) => {
   }
 
   let articleProps = { credibility, rating, sourceCategory }
-  if (sourceCategory !== undefined) {
-    let standardizedSourceCategory = standardize(sourceCategory)
-    if (standardizedSourceCategory === QUESTIONABLESOURCE) {
-      return <QuestionableSource />
-    }
-  }
+  // if (sourceCategory !== undefined) {
+  //   let standardizedSourceCategory = standardize(sourceCategory)
+  //   if (standardizedSourceCategory === QUESTIONABLESOURCE) {
+  //     return <QuestionableSource />
+  //   }
+  // }
 
 
   return (
