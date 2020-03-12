@@ -27,7 +27,7 @@ const CredibilityContainer = ({ credibility }) => {
 }
 
 const DefaultContainer = ({ children, defaultValue = "", value }) => {
-  if (value !== undefined) {
+  if (value !== false && value !== undefined) {
     return (
       <React.Fragment>
         {children}
@@ -61,7 +61,7 @@ export const StatisticsPanel = ({ credibility, rating, sourceCategory }) => {
           </div>
         </DefaultContainer>
 
-        <DefaultContainer value={sourceCategory}>
+        <DefaultContainer value={sourceCategory !== undefined && sourceCategory !== "__nosource__"}>
           <div>
             Source classified as : <Boldened>{sourceCategory}</Boldened>
           </div>

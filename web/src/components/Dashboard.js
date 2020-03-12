@@ -1,38 +1,16 @@
-import React, { useEffect } from "react"
-import styled from "styled-components"
+import React, { useEffect, useState } from "react"
+import { Redirect } from "react-router-dom"
+import { urlExtract } from "../util"
+import { ArticleClass } from "./ArticleClass"
+import { StyledCard } from "./Card"
+import { Error } from "./Error"
+import { Loader } from "./Loader"
 import { NewsChecker } from "./NewsChecker"
 import { SnopesChecker } from "./SnopesChecker"
-import { urlExtract } from "../util"
 import { SourceChecker } from "./SourceChecker"
-import { Redirect } from "react-router-dom"
-import { useState } from "react"
-import { StatisticsPanel } from "./Statistics"
-import { Loader } from "./Loader"
-import { Error } from "./Error"
-import { ArticleClass, standardize } from "./ArticleClass"
-import { QuestionableSource } from "./QuestionnableSource"
-import {StyledCard} from "./Card"
 import StancesTable from "./StancesTable"
+import { StatisticsPanel } from "./Statistics"
 
-const size = {
-  mobileS: '320px',
-  mobileM: '375px',
-  mobileL: '425px',
-  tablet: '768px',
-  laptop: '1024px',
-  laptopL: '1440px',
-  desktop: '2560px'
-}
-export const device = {
-  mobileS: `(max-width: ${size.mobileS})`,
-  mobileM: `(max-width: ${size.mobileM})`,
-  mobileL: `(max-width: ${size.mobileL})`,
-  tablet: `(max-width: ${size.tablet})`,
-  laptop: `(max-width: ${size.laptop})`,
-  laptopL: `(max-width: ${size.laptopL})`,
-  desktop: `(max-width: ${size.desktop})`,
-  desktopL: `(max-width: ${size.desktop})`
-};
 function extractHost(url) {
   let splittedHttp = url.split("//")[1]
   for (let segment of splittedHttp.split(".")) {
@@ -81,7 +59,6 @@ export const DashBoardContainer = ({ encodedUrl }) => {
 
 
 
-const QUESTIONABLESOURCE = "questionablesource"
 
 export const DashBoard = ({ headline, articleKeywords, mediaName }) => {
 
@@ -96,18 +73,11 @@ export const DashBoard = ({ headline, articleKeywords, mediaName }) => {
   }
 
   let articleProps = { credibility, rating, sourceCategory }
-  // if (sourceCategory !== undefined) {
-  //   let standardizedSourceCategory = standardize(sourceCategory)
-  //   if (standardizedSourceCategory === QUESTIONABLESOURCE) {
-  //     return <QuestionableSource />
-  //   }
-  // }
-
 
   return (
     <div className="dashboard-container">
       <div className="dashboard-top-container">
-        <div className="dashboard-side-container">
+        <div className="dashboard-side-container dashboard-left-container">
           <ArticleClass {...articleProps} />
           <StatisticsPanel {...articleProps} />
           <NewsChecker headline={headline} setCredibility={(credibility) => {
@@ -115,7 +85,7 @@ export const DashBoard = ({ headline, articleKeywords, mediaName }) => {
           }} setData={(news) => { setNewsData(news) }} data={newsData}></NewsChecker>
 
         </div>
-        <div className="dashboard-side-container">
+        <div className="dashboard-side-container dashboard-right-container">
           <SnopesChecker articleKeywords={articleKeywords} setRating={(ratings) => {
             setRating(ratings[0])
           }} />

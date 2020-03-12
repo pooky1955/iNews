@@ -1,16 +1,14 @@
-import React, {useState} from 'react';
-import { BrowserRouter as Router, Route, Switch , Redirect} from "react-router-dom";
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import './Appmd.css';
 import './Appsm.css';
-import './Appmd.css'
 import './Appxl.css';
+import { About } from "./components/About";
 import { DashBoardContainer } from "./components/Dashboard";
-import styled from "styled-components"
-import { NavBar } from "./components/NavBar"
-import {About} from "./components/About"
+import { tests } from "./components/data";
 import { FrontPage } from "./components/FrontPage";
-import {tests} from "./components/data"
-import {TestSources} from "./components/TestSources"
-import {LanguageProvider} from "./LanguageContext"
+import { NavBar } from "./components/NavBar";
+import { TestSources } from "./components/TestSources";
 
 
 export function goToPage(pageNumber) {
@@ -27,14 +25,12 @@ export const App = () => {
 
   document.body.style.backgroundColor = backgroundColor
 
-  const [language,setLanguage] = useState("en")
 
 
   return (
 
-<LanguageProvider value = {language}>
     <div className="App">
-      <NavBar linkUrls={["/", "/about","/demo"]} linkNames={["Home", "About","Demo"]} updateLanguage = {(language)=>{setLanguage(language)}} />
+      <NavBar linkUrls={["/", "/about","/demo"]} linkNames={["Home", "About","Demo"]}  />
 
       <div className="content">
         <Router>
@@ -50,7 +46,6 @@ export const App = () => {
         </Router>
       </div>
     </div>
-</LanguageProvider>
   )
 
 }

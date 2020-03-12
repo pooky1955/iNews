@@ -29,7 +29,7 @@ function shorten(headline, maxWords) {
 const allStancesCaps = ["Agree","Disagree","Discuss"]
 const allStances = ["agree", "disagree", "discuss"]
 const StanceChanger = ({ updateStance }) => {
-  let stancesButton = allStancesCaps.map((stance, index) => <button className={`btn change-stance-btn ${stance.toLowerCase()}-btn`} onClick={() => {
+  let stancesButton = allStancesCaps.map((stance, index) => <button key={stance} className={`btn change-stance-btn ${stance.toLowerCase()}-btn`} onClick={() => {
     updateStance(index)
   }}>{stance}</button>)
   return (
@@ -58,7 +58,7 @@ export const StancesTable = ({ news, updateStances, hasData }) => {
       let stanceText = allStances[stance]
       let stanceCapsText = allStancesCaps[stance]
       tableRows.push(
-        <div className={[stanceText, "stance-row"].join(' ')}>
+        <div key={url} className={[stanceText, "stance-row"].join(' ')}>
           <div className="side-banner"> </div>
           <div className="right-side-banner">
             <div>

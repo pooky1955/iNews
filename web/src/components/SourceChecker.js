@@ -66,21 +66,22 @@ export const SourceChecker = ({ source, setSourceCategory }) => {
     const cardProps = { header, body }
     return <StyledCard {...cardProps} />
   }
-  if (hasData) {
+  let hasSource;
+  if (hasData){
+    hasSource = data.hasData
+  }
+
+
+  if (hasSource) {
     
     // const header = "Media Bias Fact Check"
     let header = "Media Bias Fact Check"
     const { description, url } = data
-    if (description === undefined || url === undefined) {
-      const body = "This source wasn't registered in Media Bias Fact Check"
-      const cardProps = { body, header }
-      return <StyledCard {...cardProps} />
-
-    }
     let category = extractSourceCategory(description)
     let shortenedDescription = shortenDescription(description)
 
     setSourceCategory(category)
+
 
     const body = shortenedDescription
     const title = category
@@ -90,8 +91,11 @@ export const SourceChecker = ({ source, setSourceCategory }) => {
     return (<StyledCard {...cardProps}></StyledCard>)
 
   } else {
-    return <div></div>
-
+      setSourceCategory("__nosource__")
+      const body = "This source wasn't registered in Media Bias Fact Check"
+      let header = "Media Bias Fact Check"
+      const cardProps = { body, header }
+      return <StyledCard {...cardProps} />
   }
 }
 

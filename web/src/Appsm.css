@@ -8,6 +8,10 @@
 }
 
 
+a, a:hover {
+  color : hsl(197, 74%, 57%);
+}
+
 html,body {
   overflow-x: hidden;
 }
@@ -46,16 +50,16 @@ html,body {
 /* END BOOTSTRAP CARDS */
 
 
-/* DASHBOARD */
+/* Nav Bar */
 
 
 .main-nav {
-  height : 3em;
+  height : 4em;
   width : 100vw;
   display : flex; 
   flex-direction : row; 
   /* background : linear-gradient(40deg,hsl(0, 0%, 94%),hsl(0, 0%, 85%)); */
-  background : hsl(0, 0%, 86%);
+  background : linear-gradient(260deg,hsl(0, 0%, 96%),rgb(221, 220, 220));
   z-index : 100000000000000;
   position : fixed;
   justify-content : space-between;
@@ -93,15 +97,12 @@ html,body {
 .main-nav + .content {
   height : 100vh;
   width : 100vw;
-  padding-top : 10vh; 
+  padding-top : 15vh; 
 }
 
 
-.nav-language-icon {
-  height: 1em;  
-}
 
-/* END OF DASHBOARD */
+/* END OF NAV BAR */
 
 /* ARTICLE STATUS */
 .result {
@@ -203,7 +204,9 @@ html,body {
 
 
 .about-container {
-  padding : 2vmin;
+  padding-left : 5vmin;
+  padding-right : 5vmin;
+  padding-top : 2vmin;
 
 }
 .about-title {
@@ -228,45 +231,6 @@ html,body {
 }
 
 
-
-/* Questionable source */
-.questionable-source-container {
-  background-color: white;
-  padding : 5vmin;
-  height : 50vh;
-  margin : 3vmin;
-  
-}
-.questionable-source-container>.fake-news-container {
-  display : flex;
-  font-size : 10rem;
-  flex-direction : row;
-  align-items : center;
-}
-
-
-
-.questionable-source-container>.danger-container {
-  display : flex;
-  flex-direction : row;
-  align-items : center;
-}
-
-.questionable-source-description {
-  font-size : 1.3rem;
-}
-
-.questionable-source-container .questionable-source-quote {
-  font-family : Roboto;
-  font-weight : 300;
-  color : grey;
-  font-size : 1.2rem;
-}
-.questionable-source-container .questionable-source-author {
-  font-size : 1rem;
-  
-}
-
 .app-submit-button {
   height : 2em;
   font-size : 1.3rem;
@@ -276,6 +240,7 @@ html,body {
   font-size : 1.3rem;
   height : 2em;
 }
+/* END OF FRONT PAGE */
 
 
 /* TEST SOURCES */
@@ -294,8 +259,9 @@ html,body {
 }
 .testable-source {
   margin-bottom : 1.5em;
+  
 }
-
+/* END OF TEST SOURCES */
 
 
 /* STANCE TABLE */
@@ -360,7 +326,7 @@ html,body {
 }
 
 .link-btn {
-  background : hsl(128, 41%, 79%);
+  background : hsl(0, 0%, 83%);
 }
 
 .change-stance-text {
@@ -399,8 +365,39 @@ html,body {
   background: hsl(0, 10%, 65%);
 }
 
+/* END OF STANCE TABLE */
 
 .full-page {
   width : 100vw;
   height : 100vh;
+}
+
+
+
+/* START OF METRICS */
+
+.metrics-display {
+  display : flex;
+  width : 100%;
+  justify-content: space-between;
+}
+
+.metrics-display>div {
+  text-align: center;
+}
+
+.metrics-percentage {
+  font-size : 3rem;
+}
+
+.agree-metrics {
+  color : hsl(128,51%,59%);
+}
+
+.disagree-metrics {
+  color : hsl(0, 71%, 61%);
+}
+
+.discuss-metrics {
+  color : hsl(0, 10%, 65%);
 }

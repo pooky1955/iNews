@@ -25,11 +25,9 @@ export const FrontPage = () => {
   const [data, setData] = useState({})
 
   if (shouldRedirect) {
-    // let headline = "Trump's father is part of the KKK : supporting evidence"
-    // let keywords = ["trump", "father", "kkk"]
-    
     const {encodedUrl} = data
     return <Redirect to={`/dashboard/${encodedUrl}`} />
+
   } else {
     return (
       <Page background="white">

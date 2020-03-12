@@ -17,6 +17,13 @@
   flex-direction : row;  
 }
 
+.dashboard-left-container {
+  width : 65%;
+}
+
+.dashboard-right-container {
+  width : 35%;
+}
 
 
 }
